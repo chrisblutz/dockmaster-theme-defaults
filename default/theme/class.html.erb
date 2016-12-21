@@ -1,0 +1,22 @@
+<% for name in @base_helper.method_names %>
+  <div class="toggle">
+    <span class="toggle-name"><%= name %></span>
+    <span class="toggle-type">METHOD</span>
+  </div>
+  <div class="details initially-hidden">
+    <pre><code class="lang-ruby">
+<%= @base_helper.escape_html(@base_helper.method_source(name)) %>
+    </code></pre>
+  </div>
+<% end %>
+<% for name in @base_helper.field_names %>
+  <div class="toggle">
+    <span class="toggle-name"><%= name %></span>
+    <span class="toggle-type">FIELD</span>
+  </div>
+  <div class="details initially-hidden">
+    <pre><code class="lang-ruby">
+<%= @base_helper.escape_html(@base_helper.field_source(name)) %>
+    </code></pre>
+  </div>
+<% end %>
