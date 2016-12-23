@@ -1,9 +1,22 @@
+<p><% @docs = @store.docs %></p>
+<p><quote><%= @docs.description %></quote></p>
+<p><%= @docs[:params].inspect %></p>
+<p><%= @docs[:return] unless @docs[:return].nil? %></p>
+<p><%= @docs[:author] unless @docs[:author].nil? %></p>
+
 <% for name in @base_helper.method_names %>
   <div class="toggle">
     <span class="toggle-name"><%= name %></span>
     <span class="toggle-type">METHOD</span>
   </div>
   <div class="details initially-hidden">
+    <div class="details-docs">
+      <p><% @docs = @store.method_data[name].docs %></p>
+      <p><%= @docs.description %></p>
+      <p><%= @docs[:params].inspect %></p>
+      <p><%= @docs[:return] unless @docs[:return].nil? %></p>
+      <p><%= @docs[:author] unless @docs[:author].nil? %></p>
+    </div>
     <pre><code class="lang-ruby">
 <%= @base_helper.escape_html(@base_helper.method_source(name)) %>
     </code></pre>
