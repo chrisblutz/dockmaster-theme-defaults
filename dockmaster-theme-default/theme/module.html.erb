@@ -1,35 +1,75 @@
-<p><% @docs = @store.docs %></p>
-<p><quote><%= @docs.description %></quote></p>
-<p><%= @docs[:params].inspect unless @docs[:params].nil? %></p>
-<p><%= @docs[:return] unless @docs[:return].nil? %></p>
-<p><%= @docs[:author] unless @docs[:author].nil? %></p>
-
-<% for name in @base_helper.method_names %>
-  <div class="toggle">
-    <span class="toggle-name"><%= name %></span>
-    <span class="toggle-type">METHOD</span>
-  </div>
-  <div class="details initially-hidden">
-    <div class="details-docs">
-      <p><% @docs = @store.method_data[name].docs %></p>
-      <p><%= @docs.description %></p>
-      <p><%= @docs[:params].inspect unless @docs[:params].nil? %></p>
-      <p><%= @docs[:return] unless @docs[:return].nil? %></p>
-      <p><%= @docs[:author] unless @docs[:author].nil? %></p>
-    </div>
-    <pre><code class="lang-ruby">
-<%= @base_helper.escape_html(@base_helper.method_source(name)) %>
-    </code></pre>
-  </div>
+<span id="page-header"><%= @theme_helper.format_rb_string(store.rb_string) %></span>
+<span id="page-type-id">(MODULE)</span>
+<hr />
+<% @docs = @store.docs %>
+<% unless @docs.description.nil? || @docs.description.empty? %>
+  <p class="docs-description"><%= @docs.description %></p>
 <% end %>
-<% for name in @base_helper.field_names %>
-  <div class="toggle">
-    <span class="toggle-name"><%= name %></span>
-    <span class="toggle-type">FIELD</span>
-  </div>
-  <div class="details initially-hidden">
-    <pre><code class="lang-ruby">
-<%= @base_helper.escape_html(@base_helper.field_source(name)) %>
-    </code></pre>
-  </div>
+<% unless @docs[:author].nil? || @docs[:author].empty? %>
+  <p class="data-header">AUTHOR</p>
+  <p class="data-description"><%= @docs[:author]%> </p>
+<% end %>
+
+<% unless @base_helper.method_names.empty? %>
+  <div class="page-section-header">Module Methods</div>
+
+  <% for name in @base_helper.method_names %>
+    <% @docs = @store.method_data[name].docs %>
+    <div class="subheader-wrapper">
+      <a name="method_<%= name %>" class="page-subheader"><%= name %></a>
+      <span class="subheader-type-id">(METHOD)</span>
+    </div>
+    <hr />
+    <% unless @docs.description.nil? || @docs.description.empty? %>
+      <p class="docs-description"><%= @docs.description %></p>
+    <% end %>
+    <% unless @docs[:params].nil? || @docs[:params].empty? %>
+      <p class="data-header">PARAMETERS</p>
+      <table class="params-table">
+        <% @docs[:params].each do |param, desc| %>
+          <tr>
+            <td class="params-column1"><code class="code-background"><%= param %></code></td>
+            <td class="params-column2"><%= desc %></td>
+          </tr>
+        <% end %>
+      </table>
+      <div class="data-footer"></div>
+    <% end %>
+    <% unless @docs[:return].nil? || @docs[:return].empty? %>
+      <p class="data-header">RETURNS</p>
+      <p class="data-description"><%= @docs[:return]%> </p>
+    <% end %>
+    <div class="toggle">
+      <span class="toggle-name">SHOW SOURCE</span>
+    </div>
+    <div class="details">
+      <pre><code class="lang-ruby">
+<%= escape_html(@base_helper.method_source(name)) %>
+      </code></pre>
+    </div>
+  <% end %>
+<% end %>
+
+<% unless @base_helper.field_names.empty? %>
+  <div class="page-section-header">Module Fields</div>
+
+  <% for name in @base_helper.field_names %>
+    <% @docs = @store.field_data[name].docs %>
+    <div class="subheader-wrapper">
+      <a name="field_<%= name %>" class="page-subheader"><%= name %></a>
+      <span class="subheader-type-id">(FIELD)</span>
+    </div>
+    <hr />
+    <% unless @docs.description.nil? || @docs.description.empty? %>
+      <p class="docs-description"><%= @docs.description %></p>
+    <% end %>
+    <div class="toggle">
+      <span class="toggle-name">SHOW SOURCE</span>
+    </div>
+    <div class="details">
+      <pre><code class="lang-ruby">
+<%= escape_html(@base_helper.field_source(name)) %>
+      </code></pre>
+    </div>
+  <% end %>
 <% end %>

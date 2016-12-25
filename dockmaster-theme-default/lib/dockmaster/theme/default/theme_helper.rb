@@ -22,6 +22,11 @@ module Dockmaster
         end
         str
       end
+
+      def site_logo
+        site_logo = Dockmaster::CONFIG[:site_logo]
+        File.basename(site_logo)
+      end
     end
   end
 end

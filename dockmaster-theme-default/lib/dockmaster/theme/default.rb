@@ -1,5 +1,7 @@
 $LOAD_PATH.unshift(File.dirname(File.realpath(__FILE__)) + '/../../lib')
 
+require 'fileutils'
+
 module Dockmaster
   # This module represents a theme
   # for Dockmaster
@@ -42,6 +44,11 @@ module Dockmaster
 
     def includes_dir
       'theme/includes'
+    end
+
+    def misc_generation(_master_store, output)
+      output.create_dir('assets/')
+      output.copy_file(Dockmaster::CONFIG[:site_logo], 'assets/')
     end
   end
 end
