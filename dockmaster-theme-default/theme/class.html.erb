@@ -10,16 +10,59 @@
   <p class="data-description"><%= @docs[:author]%> </p>
 <% end %>
 
-<% unless @base_helper.method_names.empty? %>
+<% unless @base_helper.names(:constant).empty? %>
+  <div class="page-section-header">Constants</div>
+
+  <% for name in @base_helper.names(:constant) %>
+    <% @data = @store.data_type(:constant)[name] %>
+    <% @docs = @data.docs %>
+    <div class="subheader-wrapper">
+      <a name="constant_<%= name %>" class="page-subheader"><%= name %></a>
+      <span class="subheader-type-id">(CONSTANT)</span>
+    </div>
+    <hr />
+
+    <% if @data.private %>
+      <div class="warning warning-red">This constant has been marked <code>private</code>.</div>
+    <% end %>
+    <% if @data.docs[:api] == :private %>
+      <div class="warning warning-yellow">This constant has been marked <code>private</code> in the API.</div>
+    <% end %>
+
+    <% unless @docs.description.nil? || @docs.description.empty? %>
+      <p class="docs-description"><%= @docs.description %></p>
+    <% end %>
+    <div class="toggle">
+      <span class="toggle-name">SHOW SOURCE</span>
+    </div>
+    <div class="details">
+      <pre><code class="lang-ruby">
+<%= escape_html(@base_helper.source(:constant, name)) %>
+      </code></pre>
+    </div>
+  <% end %>
+<% end %>
+
+
+<% unless @base_helper.names(:static_method).empty? %>
   <div class="page-section-header">Class Methods</div>
 
-  <% for name in @base_helper.method_names %>
-    <% @docs = @store.method_data[name].docs %>
+  <% for name in @base_helper.names(:static_method) %>
+    <% @data = @store.data_type(:static_method)[name] %>
+    <% @docs = @data.docs %>
     <div class="subheader-wrapper">
-      <a name="method_<%= name %>" class="page-subheader"><%= name %></a>
+      <a name="static_method_<%= name %>" class="page-subheader"><%= name %></a>
       <span class="subheader-type-id">(METHOD)</span>
     </div>
     <hr />
+
+    <% if @data.private %>
+      <div class="warning warning-red">This method has been marked <code>private</code>.</div>
+    <% end %>
+    <% if @data.docs[:api] == :private %>
+      <div class="warning warning-yellow">This method has been marked <code>private</code> in the API.</div>
+    <% end %>
+
     <% unless @docs.description.nil? || @docs.description.empty? %>
       <p class="docs-description"><%= @docs.description %></p>
     <% end %>
@@ -44,22 +87,83 @@
     </div>
     <div class="details">
       <pre><code class="lang-ruby">
-<%= escape_html(@base_helper.method_source(name)) %>
+<%= escape_html(@base_helper.source(:static_method, name)) %>
       </code></pre>
     </div>
   <% end %>
 <% end %>
 
-<% unless @base_helper.field_names.empty? %>
-  <div class="page-section-header">Class Fields</div>
+<% unless @base_helper.names(:instance_method).empty? %>
+  <div class="page-section-header">Instance Methods</div>
 
-  <% for name in @base_helper.field_names %>
-    <% @docs = @store.field_data[name].docs %>
+  <% for name in @base_helper.names(:instance_method) %>
+    <% @data = @store.data_type(:instance_method)[name] %>
+    <% @docs = @data.docs %>
     <div class="subheader-wrapper">
-      <a name="field_<%= name %>" class="page-subheader"><%= name %></a>
-      <span class="subheader-type-id">(FIELD)</span>
+      <a name="instance_method_<%= name %>" class="page-subheader"><%= name %></a>
+      <span class="subheader-type-id">(METHOD)</span>
     </div>
     <hr />
+
+    <% if @data.private %>
+      <div class="warning warning-red">This method has been marked <code>private</code>.</div>
+    <% end %>
+    <% if @data.docs[:api] == :private %>
+      <div class="warning warning-yellow">This method has been marked <code>private</code> in the API.</div>
+    <% end %>
+
+    <% unless @docs.description.nil? || @docs.description.empty? %>
+      <p class="docs-description"><%= @docs.description %></p>
+    <% end %>
+    <% unless @docs[:params].nil? || @docs[:params].empty? %>
+      <p class="data-header">PARAMETERS</p>
+      <table class="params-table">
+        <% @docs[:params].each do |param, desc| %>
+          <tr>
+            <td class="params-column1"><code class="code-background"><%= param %></code></td>
+            <td class="params-column2"><%= desc %></td>
+          </tr>
+        <% end %>
+      </table>
+      <div class="data-footer"></div>
+    <% end %>
+    <% unless @docs[:return].nil? || @docs[:return].empty? %>
+      <p class="data-header">RETURNS</p>
+      <p class="data-description"><%= @docs[:return]%> </p>
+    <% end %>
+    <div class="toggle">
+      <span class="toggle-name">SHOW SOURCE</span>
+    </div>
+    <div class="details">
+      <pre><code class="lang-ruby">
+<%= escape_html(@base_helper.source(:instance_method, name)) %>
+      </code></pre>
+    </div>
+  <% end %>
+<% end %>
+
+<% unless @base_helper.names(:static_field).empty? %>
+  <div class="page-section-header">Class Attributes</div>
+
+  <% for name in @base_helper.names(:static_field) %>
+    <% @data = @store.data_type(:static_field)[name] %>
+    <% @docs = @data.docs %>
+    <div class="subheader-wrapper">
+      <a name="static_field_<%= name %>" class="page-subheader"><%= name %></a>
+      <span class="subheader-type-id">(ATTRIBUTE)</span>
+    </div>
+    <hr />
+
+    <% if @data.private %>
+      <div class="warning warning-red">This attribute has been marked <code>private</code>.</div>
+    <% end %>
+    <% if @data.docs[:api] == :private %>
+      <div class="warning warning-yellow">This attribute has been marked <code>private</code> in the API.</div>
+    <% end %>
+    <% if @data.readonly? %>
+      <div class="warning warning-green">This attribute is read-only.</div>
+    <% end %>
+
     <% unless @docs.description.nil? || @docs.description.empty? %>
       <p class="docs-description"><%= @docs.description %></p>
     <% end %>
@@ -68,7 +172,43 @@
     </div>
     <div class="details">
       <pre><code class="lang-ruby">
-<%= escape_html(@base_helper.field_source(name)) %>
+<%= escape_html(@base_helper.source(:static_field, name)) %>
+      </code></pre>
+    </div>
+  <% end %>
+<% end %>
+
+<% unless @base_helper.names(:instance_field).empty? %>
+  <div class="page-section-header">Instance Attributes</div>
+
+  <% for name in @base_helper.names(:instance_field) %>
+    <% @data = @store.data_type(:instance_field)[name] %>
+    <% @docs = @data.docs %>
+    <div class="subheader-wrapper">
+      <a name="instance_field_<%= name %>" class="page-subheader"><%= name %></a>
+      <span class="subheader-type-id">(ATTRIBUTE)</span>
+    </div>
+    <hr />
+
+    <% if @data.private %>
+      <div class="warning warning-red">This attribute has been marked <code>private</code>.</div>
+    <% end %>
+    <% if @data.docs[:api] == :private %>
+      <div class="warning warning-yellow">This attribute has been marked <code>private</code> in the API.</div>
+    <% end %>
+    <% if @data.readonly? %>
+      <div class="warning warning-green">This attribute is read-only.</div>
+    <% end %>
+
+    <% unless @docs.description.nil? || @docs.description.empty? %>
+      <p class="docs-description"><%= @docs.description %></p>
+    <% end %>
+    <div class="toggle">
+      <span class="toggle-name">SHOW SOURCE</span>
+    </div>
+    <div class="details">
+      <pre><code class="lang-ruby">
+<%= escape_html(@base_helper.source(:instance_field, name)) %>
       </code></pre>
     </div>
   <% end %>

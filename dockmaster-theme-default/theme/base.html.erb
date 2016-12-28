@@ -18,7 +18,7 @@
         <header class="header">
             <a href="/"><img class="header-logo" src="/assets/<%= @theme_helper.site_logo %>" alt="<%= Dockmaster::CONFIG[:title] %> Logo" /></a>
             <% unless Dockmaster::CONFIG[:source_repo].nil? || Dockmaster::CONFIG[:source_repo].empty? %>
-            <a href="<%= Dockmaster::CONFIG[:source_repo] %>" target="_blank" class="header-source-link">View Source</a>
+              <a href="<%= Dockmaster::CONFIG[:source_repo] %>" target="_blank" class="header-source-link">View Source</a>
             <% end %>
         </header>
         <div>
@@ -34,25 +34,48 @@
             <div id="lc-list-footer"></div>
 
             <% unless @store.nil? || @store.type == :none %>
-              <% unless @base_helper.method_names.empty? %>
+              <% @constants = @base_helper.names(:constant) %>
+              <% unless @constants.empty? %>
                 <div id="lc-list-header">
-                  <span id="lc-list-header-text"><%= @store.rb_string.upcase %> METHODS</span>
+                  <span id="lc-list-header-text">CONSTANTS</span>
                 </div>
                 <div id="lc-list">
-                  <% @base_helper.method_names.each do |name| %>
-                    <a class="lc-list-item" href="#method_<%= name %>">.<%= name %></a>
+                  <% @constants.each do |name| %>
+                    <a class="lc-list-item" href="#constant_<%= name %>">::<%= name %></a>
                   <% end %>
                 </div>
                 <div id="lc-list-footer"></div>
               <% end %>
 
-              <% unless @base_helper.field_names.empty? %>
+              <% @instance = @base_helper.names(:instance_method) %>
+              <% @static = @base_helper.names(:static_method) %>
+              <% unless @instance.empty? && @static.empty? %>
                 <div id="lc-list-header">
-                  <span id="lc-list-header-text"><%= @store.rb_string.upcase %> FIELDS</span>
+                  <span id="lc-list-header-text">METHODS</span>
                 </div>
                 <div id="lc-list">
-                  <% @base_helper.field_names.each do |name| %>
-                    <a class="lc-list-item" href="#field_<%= name %>">::<%= name %></a>
+                  <% @static.each do |name| %>
+                    <a class="lc-list-item" href="#static_method_<%= name %>">::<%= name %></a>
+                  <% end %>
+                  <% @instance.each do |name| %>
+                    <a class="lc-list-item" href="#instance_method_<%= name %>">#<%= name %></a>
+                  <% end %>
+                </div>
+                <div id="lc-list-footer"></div>
+              <% end %>
+
+              <% @instance = @base_helper.names(:instance_field) %>
+              <% @static = @base_helper.names(:static_field) %>
+              <% unless @instance.empty? && @static.empty? %>
+                <div id="lc-list-header">
+                  <span id="lc-list-header-text">FIELDS</span>
+                </div>
+                <div id="lc-list">
+                  <% @static.each do |name| %>
+                    <a class="lc-list-item" href="#static_field_<%= name %>">::<%= name %></a>
+                  <% end %>
+                  <% @instance.each do |name| %>
+                    <a class="lc-list-item" href="#instance_field_<%= name %>">#<%= name %></a>
                   <% end %>
                 </div>
                 <div id="lc-list-footer"></div>

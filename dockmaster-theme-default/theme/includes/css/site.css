@@ -323,6 +323,35 @@ a:hover, a:active {
     color: #555555;
 }
 
+.warning {
+    margin-top: 8px;
+    padding: 8px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    background: #b3b3b3;
+    border: 1px solid #777777;
+    border-radius: 8px;
+}
+
+.warning-red {
+    background: #ff8080;
+    border: 1px solid #330000;
+    color: #330000;
+}
+
+.warning-yellow {
+    background: #ffff66;
+    border: 1px solid #4d4d00;
+    color: #4d4d00;
+}
+
+.warning-green {
+    background: #80ff80;
+    border: 1px solid #003300;
+    color: #003300;
+}
+
 .toggle {
     margin-top: 10px;
     padding: 10px 30px;
