@@ -5,8 +5,16 @@
 <% unless @docs.description.nil? || @docs.description.empty? %>
   <p class="docs-description"><%= @docs.description %></p>
 <% end %>
+<% unless @docs[:deprecated].nil? %>
+  <p class="docs-description">
+    <em>
+      <strong>Deprecated.  </strong>
+      <%= @docs[:deprecated] %>
+    </em>
+  </p>
+<% end %>
 <% unless @docs[:author].nil? || @docs[:author].empty? %>
-  <p class="data-header">AUTHOR</p>
+  <p class="data-header">Author:</p>
   <p class="data-description"><%= @docs[:author]%> </p>
 <% end %>
 
@@ -20,20 +28,32 @@
       <a name="constant_<%= name %>" class="page-subheader"><%= name %></a>
       <span class="subheader-type-id">(CONSTANT)</span>
     </div>
-    <hr />
 
-    <% if @data.private %>
-      <div class="warning warning-red">This constant has been marked <code>private</code>.</div>
-    <% end %>
-    <% if @data.docs[:api] == :private %>
-      <div class="warning warning-yellow">This constant has been marked <code>private</code> in the API.</div>
-    <% end %>
+    <div class="warning-bank">
+      <% if @data.private %>
+        <div class="warning warning-red"><strong>Accessibility:</strong> Private</div>
+      <% end %>
+      <% if @data.docs[:api] == :private %>
+        <div class="warning warning-orange"><strong>API:</strong> Private</div>
+      <% end %>
+      <% unless @data.docs[:deprecated].nil? %>
+        <div class="warning warning-yellow">Deprecated</div>
+      <% end %>
+    </div>
 
     <% unless @docs.description.nil? || @docs.description.empty? %>
       <p class="docs-description"><%= @docs.description %></p>
     <% end %>
+    <% unless @data.docs[:deprecated].nil? %>
+      <p class="docs-description">
+        <em>
+          <strong>Deprecated.  </strong>
+          <%= @docs[:deprecated] %>
+        </em>
+      </p>
+    <% end %>
     <div class="toggle">
-      <span class="toggle-name">SHOW SOURCE</span>
+      <span class="toggle-name">View Source</span>
     </div>
     <div class="details">
       <pre><code class="lang-ruby">
@@ -54,20 +74,32 @@
       <a name="static_method_<%= name %>" class="page-subheader"><%= name %></a>
       <span class="subheader-type-id">(METHOD)</span>
     </div>
-    <hr />
 
-    <% if @data.private %>
-      <div class="warning warning-red">This method has been marked <code>private</code>.</div>
-    <% end %>
-    <% if @data.docs[:api] == :private %>
-      <div class="warning warning-yellow">This method has been marked <code>private</code> in the API.</div>
-    <% end %>
+    <div class="warning-bank">
+      <% if @data.private %>
+        <div class="warning warning-red"><strong>Accessibility:</strong> Private</div>
+      <% end %>
+      <% if @data.docs[:api] == :private %>
+        <div class="warning warning-orange"><strong>API:</strong> Private</div>
+      <% end %>
+      <% unless @data.docs[:deprecated].nil? %>
+        <div class="warning warning-yellow">Deprecated</div>
+      <% end %>
+    </div>
 
     <% unless @docs.description.nil? || @docs.description.empty? %>
       <p class="docs-description"><%= @docs.description %></p>
     <% end %>
+    <% unless @data.docs[:deprecated].nil? %>
+      <p class="docs-description">
+        <em>
+          <strong>Deprecated.  </strong>
+          <%= @docs[:deprecated] %>
+        </em>
+      </p>
+    <% end %>
     <% unless @docs[:params].nil? || @docs[:params].empty? %>
-      <p class="data-header">PARAMETERS</p>
+      <p class="data-header">Parameters:</p>
       <table class="params-table">
         <% @docs[:params].each do |param, desc| %>
           <tr>
@@ -76,14 +108,13 @@
           </tr>
         <% end %>
       </table>
-      <div class="data-footer"></div>
     <% end %>
     <% unless @docs[:return].nil? || @docs[:return].empty? %>
-      <p class="data-header">RETURNS</p>
+      <p class="data-header">Returns:</p>
       <p class="data-description"><%= @docs[:return]%> </p>
     <% end %>
     <div class="toggle">
-      <span class="toggle-name">SHOW SOURCE</span>
+      <span class="toggle-name">View Source</span>
     </div>
     <div class="details">
       <pre><code class="lang-ruby">
@@ -103,23 +134,35 @@
       <a name="static_field_<%= name %>" class="page-subheader"><%= name %></a>
       <span class="subheader-type-id">(ATTRIBUTE)</span>
     </div>
-    <hr />
 
-    <% if @data.private %>
-      <div class="warning warning-red">This attribute has been marked <code>private</code>.</div>
-    <% end %>
-    <% if @data.docs[:api] == :private %>
-      <div class="warning warning-yellow">This attribute has been marked <code>private</code> in the API.</div>
-    <% end %>
-    <% if @data.readonly %>
-      <div class="warning warning-green">This attribute is read-only.</div>
-    <% end %>
+    <div class="warning-bank">
+      <% if @data.private %>
+        <div class="warning warning-red"><strong>Accessibility:</strong> Private</div>
+      <% end %>
+      <% if @data.docs[:api] == :private %>
+        <div class="warning warning-orange"><strong>API:</strong> Private</div>
+      <% end %>
+      <% unless @data.docs[:deprecated].nil? %>
+        <div class="warning warning-yellow">Deprecated</div>
+      <% end %>
+      <% if @data.readonly? %>
+        <div class="warning warning-green">Read-Only</div>
+      <% end %>
+    </div>
 
     <% unless @docs.description.nil? || @docs.description.empty? %>
       <p class="docs-description"><%= @docs.description %></p>
     <% end %>
+    <% unless @data.docs[:deprecated].nil? %>
+      <p class="docs-description">
+        <em>
+          <strong>Deprecated.  </strong>
+          <%= @docs[:deprecated] %>
+        </em>
+      </p>
+    <% end %>
     <div class="toggle">
-      <span class="toggle-name">SHOW SOURCE</span>
+      <span class="toggle-name">View Source</span>
     </div>
     <div class="details">
       <pre><code class="lang-ruby">

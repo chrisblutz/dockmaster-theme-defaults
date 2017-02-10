@@ -1,0 +1,122 @@
+#content {
+    position: relative;
+    top: 30px;
+    padding: 10px;
+    margin-left: 360px;
+}
+
+#page-header {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#page-type-id {
+    position: relative;
+    top: 6px;
+    right: 10px;
+    float: right;
+    font-size: 14px;
+    color: $content-id;
+}
+
+.page-section-header {
+    margin: 60px 0;
+    padding: 10px 10px;
+    font-size: 23px;
+    font-weight: bold;
+    background: $header-color;
+    border: 1px solid $header-border;
+    border-left-width: 4px;
+    border-radius: $border-radius;
+}
+
+.page-subheader {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.subheader-type-id {
+    position: relative;
+    top: 2px;
+    right: 10px;
+    float: right;
+    font-size: 14px;
+    color: $content-id;
+}
+
+.subheader-wrapper {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $header-border;
+}
+
+.docs-description {
+    font-size: 1em;
+    line-height: 1.4;
+    margin-top: 10px;
+}
+
+.data-header {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.data-description {
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+.params-table {
+    width: 100%;
+}
+
+.params-column1 {
+    text-align: center;
+}
+
+.params-column1 code {
+    background: none;
+}
+
+.params-column2 {
+    text-align: left;
+}
+
+.toggle {
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 6px 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+    background: $header-color;
+    border: 1px solid $header-border;
+    border-radius: $border-radius;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.toggle:hover, .toggle:active {
+    background: $header-color-lighter;
+}
+
+.details {
+    display: none;
+    width: 100%;
+    border-radius: $border-radius;
+
+    pre {
+        border-radius: $border-radius;
+
+        code {
+            border-radius: $border-radius;
+        }
+    }
+}

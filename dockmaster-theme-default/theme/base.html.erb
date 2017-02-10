@@ -1,59 +1,59 @@
 <html>
   <head>
-    <link href="https://fonts.googleapis.com/css?family=Inconsolata|Source+Sans+Pro:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans:400,700" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/atom-one-dark.min.css">
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.js" type="text/javascript"></script>
 
-    <link rel="stylesheet" type="text/css" href="/css/site.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
 
     <script src="/js/site.js"></script>
     <script>
       hljs.initHighlightingOnLoad();
     </script>
-    <title><%= Dockmaster::CONFIG[:title] %></title>
+    <title><%= Dockmaster::CONFIG[:title] %><% unless @store.rb_string.nil? %> (<%= @store.rb_string %>)<% end %></title>
   </head>
   <body>
         <header class="header">
-            <a href="/"><img class="header-logo" src="/assets/<%= @theme_helper.site_logo %>" alt="<%= Dockmaster::CONFIG[:title] %> Logo" /></a>
-            <% unless Dockmaster::CONFIG[:source_repo].nil? || Dockmaster::CONFIG[:source_repo].empty? %>
-              <a href="<%= Dockmaster::CONFIG[:source_repo] %>" target="_blank" class="header-source-link">View Source</a>
-            <% end %>
+            <a href="/"><img class="header-logo" alt="<%= Dockmaster::CONFIG[:title] %>" src="/assets/<%= @theme_helper.site_logo %>" alt="<%= Dockmaster::CONFIG[:title] %> Logo" /></a>
+            <nav class="header-nav">
+              <% unless Dockmaster::CONFIG[:source_repo].nil? || Dockmaster::CONFIG[:source_repo].empty? %>
+                <a href="<%= Dockmaster::CONFIG[:source_repo] %>" target="_blank" class="header-nav-link">View Source</a>
+              <% end %>
+            </nav>
         </header>
         <div>
           <div id="left-column">
-            <div id="lc-list-header">
-              <span id="lc-list-header-text">CONTENTS</span>
+            <div class="lc-list-header">
+              <span class="lc-list-header-text">Contents</span>
             </div>
-            <div id="lc-list">
+            <div class="lc-list">
               <% for store in @base_helper.list_all_stores %>
                 <a class="lc-list-item" href="/<%= store.path %>.html"><%= @theme_helper.format_rb_string(store.rb_string) %></a>
               <% end %>
             </div>
-            <div id="lc-list-footer"></div>
 
             <% unless @store.nil? || @store.type == :none %>
               <% @constants = @base_helper.names(:constant) %>
               <% unless @constants.empty? %>
-                <div id="lc-list-header">
-                  <span id="lc-list-header-text">CONSTANTS</span>
+                <div class="lc-list-header">
+                  <span class="lc-list-header-text">Constants</span>
                 </div>
-                <div id="lc-list">
+                <div class="lc-list">
                   <% @constants.each do |name| %>
                     <a class="lc-list-item" href="#constant_<%= name %>">::<%= name %></a>
                   <% end %>
                 </div>
-                <div id="lc-list-footer"></div>
               <% end %>
 
               <% @instance = @base_helper.names(:instance_method) %>
               <% @static = @base_helper.names(:static_method) %>
               <% unless @instance.empty? && @static.empty? %>
-                <div id="lc-list-header">
-                  <span id="lc-list-header-text">METHODS</span>
+                <div class="lc-list-header">
+                  <span class="lc-list-header-text">Methods</span>
                 </div>
-                <div id="lc-list">
+                <div class="lc-list">
                   <% @static.each do |name| %>
                     <a class="lc-list-item" href="#static_method_<%= name %>">::<%= name %></a>
                   <% end %>
@@ -61,16 +61,15 @@
                     <a class="lc-list-item" href="#instance_method_<%= name %>">#<%= name %></a>
                   <% end %>
                 </div>
-                <div id="lc-list-footer"></div>
               <% end %>
 
               <% @instance = @base_helper.names(:instance_field) %>
               <% @static = @base_helper.names(:static_field) %>
               <% unless @instance.empty? && @static.empty? %>
-                <div id="lc-list-header">
-                  <span id="lc-list-header-text">FIELDS</span>
+                <div class="lc-list-header">
+                  <span class="lc-list-header-text">Fields</span>
                 </div>
-                <div id="lc-list">
+                <div class="lc-list">
                   <% @static.each do |name| %>
                     <a class="lc-list-item" href="#static_field_<%= name %>">::<%= name %></a>
                   <% end %>
@@ -78,7 +77,6 @@
                     <a class="lc-list-item" href="#instance_field_<%= name %>">#<%= name %></a>
                   <% end %>
                 </div>
-                <div id="lc-list-footer"></div>
               <% end %>
             <% end %>
           </div>

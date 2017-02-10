@@ -13,6 +13,8 @@ Gem::Specification.new do |s|
   s.summary   = 'The default theme included with Dockmaster'
   s.homepage  = ''
 
+  s.add_runtime_dependency 'sass', '~> 3.4'
+
   s.add_development_dependency 'dockmaster', '~> 0.1.0'
   s.add_development_dependency 'bundler', '~> 1.13'
 end

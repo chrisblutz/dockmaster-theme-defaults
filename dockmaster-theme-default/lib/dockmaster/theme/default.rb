@@ -2,6 +2,8 @@ $LOAD_PATH.unshift(File.dirname(File.realpath(__FILE__)) + '/../../lib')
 
 require 'fileutils'
 
+require 'sass'
+
 module Dockmaster
   # This module represents a theme
   # for Dockmaster
@@ -47,6 +49,12 @@ module Dockmaster
     end
 
     def misc_generation(_master_store, output)
+      output.create_dir('css/')
+      Dir.chdir(File.join(gem_source, 'theme/scss')) do
+        sass_engine = Sass::Engine.new(IO.read('main.scss'), filename: 'main', load_paths: [''], syntax: :scss)
+        File.open(output.relative_path('css/main.css'), 'w') { |f| f.write(sass_engine.render) }
+      end
+
       output.create_dir('assets/')
       output.copy_file(Dockmaster::CONFIG[:site_logo], 'assets/')
     end

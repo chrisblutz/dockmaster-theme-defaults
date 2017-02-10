@@ -1,0 +1,25 @@
+$border-radius: 4px;
+$header-radius: $border-radius*3;
+
+$header-color: #d9d9d9;
+$header-color-lighter: lighten($header-color, 5%);
+$header-border: #bfbfbf;
+
+$ud-link: #111111;
+$ud-link-hover: #555555;
+
+$code-color: #f0f0f5;
+
+$lc-border: #b3b3b3;
+$lc-sep-border: #d9d9d9;
+
+$content-id: #555555;
+
+$blockquote-back: #f2f2f2;
+$blockquote-border: #d9d9d9;
+
+$warning-back-default: #cccccc;
+$warning-back-green: #70db70;
+$warning-back-yellow: #f0f075;
+$warning-back-orange: #ffbf80;
+$warning-back-red: #ff9980;

@@ -1,0 +1,33 @@
+.warning-bank {
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.warning {
+    display: inline-block;
+    border-radius: $border-radius;
+    padding: 4px 10px;
+    margin: 5px 0;
+    font-size: 14px;
+    background: $warning-back-default;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.warning.warning-green {
+    background: $warning-back-green;
+}
+
+.warning.warning-yellow {
+    background: $warning-back-yellow;
+}
+
+.warning.warning-orange {
+    background: $warning-back-orange;
+}
+
+.warning.warning-red {
+    background: $warning-back-red;
+}

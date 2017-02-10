@@ -1,0 +1,119 @@
+// HEADER
+
+.header {
+    height: 60px;
+}
+
+.header-nav {
+    background: $header-color;
+    border-bottom: 1px solid $header-border;
+    border-left: 1px solid $header-border;
+    border-bottom-left-radius: $header-radius;
+    float: right;
+    height: 60px;
+    width: 50%;
+}
+
+.header-nav-link:first-child {
+    border-bottom-left-radius: $header-radius;
+}
+
+.header-nav-link, .header-nav-link:visited {
+    display: inline-block;
+    font-size: 16px;
+    padding: 22px 20px;
+    text-decoration: none;
+    float: left;
+}
+
+.header-nav-link:hover, .header-nav-link:active {
+    background: $header-color-lighter;
+}
+
+.header-logo {
+    position: relative;
+    top: 10px;
+    left: 10px;
+    height: 40px;
+}
+
+// FOOTER
+
+#footer {
+    flex-grow: 1;
+    clear: both;
+    z-index: 1;
+    width: 100%;
+    min-height: 50px;
+    background: $header-color-lighter;
+    border-top: 1px solid $header-border;
+    margin-top: 60px;
+}
+
+#generated-by {
+    float: right;
+    padding: 18px 25px;
+    font-size: 14px;
+}
+
+#generated-by-link, #generated-by-link:visited {
+    text-decoration: none;
+    color: $ud-link;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#generated-by-link:hover, #generated-by-link:active {
+    color: $ud-link-hover;
+}
+
+// LEFT COLUMN
+
+#left-column {
+    float: left;
+    width: 360px;
+}
+
+.lc-list-header {
+    margin-top: 30px;
+    position: relative;
+    left: 20px;
+    background: $header-color;
+    width: 320px;
+    border: 1px solid $lc-border;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+}
+
+.lc-list-header-text {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px 10px;
+}
+
+.lc-list {
+    position: relative;
+    left: 20px;
+    width: 320px;
+    border: 1px solid $header-border;
+    border-top: none;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+}
+
+.lc-list-item, .lc-list-item:visited {
+    display: block;
+    text-decoration: none;
+    font-size: 14px;
+    color: #000000;
+    padding: 8px 10px;
+}
+
+.lc-list-item:not(:first-child) {
+    border-top: 1px solid $lc-sep-border;
+}
+
+.lc-list-item:hover, .lc-list-item:active {
+    text-decoration: underline;
+}
